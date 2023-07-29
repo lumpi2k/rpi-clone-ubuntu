@@ -1025,7 +1025,7 @@ then
 		cp $fstab_tmp $fstab
 		printf "Your original fstab is backed up to $fstab_save\n"
 
-		cmdline_txt=/boot/cmdline.txt
+		cmdline_txt=/boot/firmware/cmdline.txt
 		cmdline_save=$cmdline_txt.${PGM}-save
 		if [ -f $cmdline_txt ] && grep -q "$src_root_dev" $cmdline_txt
 		then
@@ -1766,15 +1766,15 @@ qecho ""
 # Fix PARTUUID or device name references in cmdline.txt and fstab
 #
 fstab=${clone}/etc/fstab
-cmdline_txt=${clone}/boot/cmdline.txt
+cmdline_txt=${clone}/boot/firmware/cmdline.txt
 
 if [ -f $cmdline_txt ]
 then
 	if ((leave_sd_usb_boot && SD_slot_dst))
 	then
 		qecho "Leaving SD to USB boot alone."
-		cp $cmdline_txt ${clone}/boot/cmdline.boot
-		cmdline_txt=${clone}/boot/cmdline.boot
+		cp $cmdline_txt ${clone}/boot/firmware/cmdline.boot
+		cmdline_txt=${clone}/boot/firmware/cmdline.boot
 	fi
 	if grep -q $src_disk_ID $cmdline_txt
 	then
@@ -1788,8 +1788,8 @@ then
 	if ((leave_sd_usb_boot && SD_slot_boot))
 	then
 		qecho "Copying USB cmdline.txt to SD card to set up USB boot."
-		cp /boot/cmdline.txt /boot/cmdline.boot
-		cp $cmdline_txt /boot/cmdline.txt
+		cp /boot/firmware/cmdline.txt /boot/firmware/cmdline.boot
+		cp $cmdline_txt /boot/firmware/cmdline.txt
 	fi
 fi
 
